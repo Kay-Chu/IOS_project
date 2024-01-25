@@ -9,34 +9,29 @@ import SwiftUI
 struct InputView: View {
     
     @Binding var text: String
-    let title: String
+    let imageName: String
     let placeholder: String
     var isSecureField = false
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(title)
-                .foregroundStyle(Color(.darkGray))
-                .fontWeight(.semibold)
-                .font(.footnote)
-            if isSecureField { 
-                SecureField(placeholder, text: $text)
-                    .font(.system(size:14))
-            } else {
-                TextField(placeholder, text: $text)
-                    .font(.system(size:14))
+        VStack(alignment: .center) {
+            HStack(alignment:.bottom, spacing:12) {
+                InputIconView(imageName: imageName)
+                    .frame(width:25)
+                InputFieldView(text: $text, placeholder: placeholder, isSecureField: isSecureField)
+                    .background(Color.white)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.gray, lineWidth: 1)
+                    )
             }
-            Divider()
+            .padding(.bottom, 12)
         }
     }
 }
 
-//struct InputView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        InputView(text: .constant(""), title: "Email Address", placeholder: "name@example.com")
-//    }
-//}
-
 #Preview {
-    InputView(text: .constant(""), title: "Email Address", placeholder: "name@example.com")
+    InputView(text: .constant("name"), imageName: "person", placeholder: "name")
 }
+
+

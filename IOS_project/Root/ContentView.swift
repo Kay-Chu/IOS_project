@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
+//    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
@@ -16,18 +17,21 @@ struct ContentView: View {
         VStack {
             
             Group {
-//                LoginView()
-                if (viewModel.currentUser != nil || viewModel.userSession != nil) {
+
+                if (viewModel.currentUser != nil && $viewModel.userSession != nil) {
                     TabView {
                         
-                        QuestionsView().tabItem ({ Image(systemName: "questionmark.app.fill")
-                            Text("Test")
+                        HomePageView().tabItem ({ Image(systemName: "house.fill")
+                            Text("Home")
                         }).tag(0)
+                        ChatbotView().tabItem ({ Image(systemName: "shareplay")
+                            Text("Assistant")
+                        }).tag(1)
                         SchoolInfoView().tabItem ({ Image(systemName: "graduationcap.fill")
                             Text("School Info")
-                        }).tag(1)
+                        }).tag(2)
                         ProfileView().tabItem({ Image(systemName: "gearshape.fill")
-                            Text("Profile")             }).tag(2)
+                            Text("Profile")             }).tag(3)
                         
                     }
                 } else {

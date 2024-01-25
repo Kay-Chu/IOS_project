@@ -32,29 +32,34 @@ struct RegistrationView: View {
             // image
             Image("coventry_logo")
                 .resizable()
-                .scaledToFill()
-                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 100)
+                .scaledToFit()
+                .frame(width: 100, height: 100)
+                .padding()
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.gray, lineWidth: 1))
                 .padding(.vertical, 32)
             
             // form fields
-            VStack(spacing:24) {
+            VStack(alignment: .center,spacing: 4) {
                 
-                InputView(text: $email, title: "Email Address", placeholder: "name@example.com")
-                    .textInputAutocapitalization(.none)
                 
-                InputView(text: $fullname, title: "Full Name", placeholder: "Enter you name")
                 
-                InputView(text: $password, title: "Password", placeholder: "Enter you password", isSecureField: true)
+                InputView(text: $fullname, imageName: "person.circle.fill", placeholder: "Full Name")
+                
+                InputView(text: $email, imageName: "envelope.circle.fill", placeholder: "Name@example.com")
+                
+                InputView(text: $password, imageName: "key.fill", placeholder: "Password", isSecureField: true)
                 
                 ZStack(alignment: .trailing) {
-                    InputView(text: $confirmPassword, title: "Confirm Password", placeholder: "Confirm you password", isSecureField: true)
-                    if !password.isEmpty && confirmPassword.isEmpty {
+                    InputView(text: $confirmPassword, imageName: "key.fill", placeholder: "Confirm you password", isSecureField: true)
+                    if !password.isEmpty  {
                         if password == confirmPassword {
                             Image(systemName: "checkmark.circle.fill")
                                 .imageScale(.large)
                                 .fontWeight(.bold)
                                 .foregroundColor(Color(.systemGreen))
-                        } else {
+                        }
+                        else {
                             Image(systemName: "xmark.circle.fill")
                                 .imageScale(.large)
                                 .fontWeight(.bold)
@@ -64,8 +69,6 @@ struct RegistrationView: View {
                 }
                 
             }
-            .padding(.horizontal)
-            .padding(.top, 12)
             
             // sign up button
             Button {
@@ -81,11 +84,10 @@ struct RegistrationView: View {
                 .foregroundColor(.white)
                 .disabled(!formIsValid)
                 .opacity(formIsValid ? 1.0 : 0.5)
-                .frame(width: UIScreen.main.bounds.width - 32, height: 48)
+                .frame(width: 280, height: 38)
             }
-            .background(Color(.systemBlue))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .padding(.top, 24)
+            .buttonStyle(BounceButtonStyle())
+            .padding()
             
             Spacer()
             
@@ -98,7 +100,8 @@ struct RegistrationView: View {
                     Text("Sign in")
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 }
-                .font(.system(size:14))
+                .font(.custom("Cabal", size: 12))
+                .foregroundColor(.mint)
             }
             
             

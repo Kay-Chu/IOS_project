@@ -14,14 +14,14 @@ import CoreLocation
 
 struct MapView: UIViewRepresentable {
     @Binding var isNavigating: Bool
-    
     @Binding var myPlace: CLLocationCoordinate2D?
-//    @Binding const finishPlace: CLLocationCoordinate2D?
+    @Binding var hasSetInitialScale: Bool
     let finishPlace: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 52.40780553907607, longitude: -1.5059394062587261)
 //    let finishPlace: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.330, longitude: -122.030)
     let navType: Int
     
     var defaultCoordinate = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    
     
     var mapView = MKMapView()
     
@@ -56,13 +56,15 @@ struct MapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
         
+        var mapScale = 0.001
+        
         let overlayCoords = [
         CLLocationCoordinate2D(latitude: 52.40780553907607, longitude: -1.5059394062587261), CLLocationCoordinate2D(latitude: 52.407492801664205,  longitude: -1.5059762722503054), CLLocationCoordinate2D(latitude: 52.40743732934472, longitude: -1.5049546406373038), CLLocationCoordinate2D(latitude: 52.406951769053954, longitude: -1.5050126619901705),
             CLLocationCoordinate2D(latitude: 52.40693493313788, longitude: -1.5046948818117563),
             CLLocationCoordinate2D(latitude: 52.40762529141824, longitude: -1.5044745367607302),
         ]
         let overlay = MKPolygon(coordinates: overlayCoords, count: overlayCoords.count)
-        let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+        let span = MKCoordinateSpan(latitudeDelta: mapScale, longitudeDelta: mapScale)
         let region = MKCoordinateRegion(center: myPlace ?? defaultCoordinate, span: span)
         uiView.removeOverlays(uiView.overlays) // Remove previous overlays
         uiView.setRegion(region, animated: false)
@@ -144,19 +146,31 @@ struct MapView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            if annotation is MyPinAnnotation {
-                let identifier = "MyPinAnnotation"
-                var view: MKAnnotationView
-                if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
-                    dequeuedView.annotation = annotation
-                    view = dequeuedView
-                } else {
-                    view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                    view.canShowCallout = true
-                    view.calloutOffset = CGPoint(x: 0, y: 20)
-                    view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-                    view.image = UIImage(named: "pin")
-                }
+
+            if let annotation = annotation as? MyPinAnnotation {
+                    let identifier = "MyPinAnnotation"
+                    var view: MKAnnotationView
+                    if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
+                        dequeuedView.annotation = annotation
+                        view = dequeuedView
+                    } else {
+                        view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                        view.canShowCallout = true
+                        view.calloutOffset = CGPoint(x: -5, y: 5)
+                        view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+                        view.image = UIImage(named: "pin")
+                    }
+                    
+                    let rightButton = UIButton(type: .custom)
+                    rightButton.frame = CGRect(x: 0, y: 0, width: 80, height: 50)
+                    rightButton.setTitle("Go", for: .normal)
+                    rightButton.backgroundColor = UIColor.gray
+                    rightButton.addTarget(self, action: #selector(Coordinator.navigate(_:)), for: .touchUpInside)
+                    view.rightCalloutAccessoryView = rightButton
+                    
+                    let leftImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+                    leftImageView.image = UIImage(named: "Notification1")
+                    view.leftCalloutAccessoryView = leftImageView
                 return view
             }
             return nil
@@ -182,14 +196,20 @@ struct MapView: UIViewRepresentable {
                 DispatchQueue.main.async {
                     self.mapView.removeOverlays(self.mapView.overlays)
                     self.mapView.addOverlay(route.polyline, level: .aboveRoads)
-//                    let rect = route.polyline.boundingMapRect
-//                    self.mapView.setVisibleMapRect(rect, edgePadding: UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40), animated: true)
-//                    
-//                    let region = MKCoordinateRegion(route.polyline.boundingMapRect)
-//                    self.mapView.setRegion(region, animated: true)
+                    
+                    if !hasSetInitialScale {
+                        let rect = route.polyline.boundingMapRect
+                        self.mapView.setVisibleMapRect(rect, edgePadding: UIEdgeInsets(top: 40, left: 40, bottom: 40, right: 40), animated: true)
+                        
+                        let region = MKCoordinateRegion(route.polyline.boundingMapRect)
+                        self.mapView.setRegion(region, animated: true)
+                        hasSetInitialScale = true
+                    }
+                    
                 }
             }
         }
+        hasSetInitialScale = false
         
     }
     
@@ -210,7 +230,7 @@ struct MapView: UIViewRepresentable {
 
 extension MapView {
     func addAnnotations(to mapView: MKMapView) {
-        let destinationAnnotation = MyPinAnnotation(coordinate: finishPlace, title: "Destination", subtitle: "Mental Health Center")
+        let destinationAnnotation = MyPinAnnotation(coordinate: finishPlace, title: "Coventry Mental Health Center", subtitle: "Destination")
         mapView.addAnnotation(destinationAnnotation)
     }
 }

@@ -28,18 +28,17 @@ struct LoginView: View {
                 // image
                 Image("coventry_logo")
                     .resizable()
-                    .scaledToFill()
-                    .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 100)
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .padding()
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.gray, lineWidth: 1))
                     .padding(.vertical, 32)
                 
                 // form fields
-                VStack(spacing:24) {
-                    InputView(text: $email, title: "Email Address", placeholder: "name@example.com")
-                        .textInputAutocapitalization(.none)
-                    InputView(text: $password, title: "Password", placeholder: "Enter you password", isSecureField: true)
-                }
-                .padding(.horizontal)
-                .padding(.top, 12)
+                InputView(text: $email, imageName: "envelope.circle", placeholder: "Enter your email")
+                InputView(text: $password, imageName: "key", placeholder: "Enter your password", isSecureField: true)
+                
                 
                 // sign in button
                 Button {
@@ -55,15 +54,13 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .disabled(!formIsValid)
                     .opacity(formIsValid ? 1.0 : 0.5)
-                    .frame(width: UIScreen.main.bounds.width - 32, height: 48)
+                    .frame(width: 280, height: 38)
                 }
-                .background(Color(.systemBlue))
-                
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding(.top, 24)
+                .buttonStyle(BounceButtonStyle())
+                .padding()
                 
                 Spacer()
-                
+                    
                 // sign up button
                 NavigationLink {
                     RegistrationView()
@@ -74,7 +71,8 @@ struct LoginView: View {
                         Text("Sign up")
                             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     }
-                    .font(.system(size:14))
+                    .font(.custom("Cabal", size: 12))
+                    .foregroundColor(.mint)
                 }
                 
                 
@@ -83,17 +81,6 @@ struct LoginView: View {
     }
 }
 
-//extension LoginView: AuthenticationFormProtocol {
-//    var formIsValid: Bool {
-//        return !email.isEmpty
-//        && email.contains("@")
-//        && !password.isEmpty
-//        && password.count > 5
-//    }
-//}
-
-
-
-//#Preview {
-//    LoginView()
-//}
+#Preview {
+    LoginView()
+}
