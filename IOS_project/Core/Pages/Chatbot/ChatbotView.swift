@@ -42,6 +42,9 @@ struct ChatbotView: View {
             }
             
             HStack {
+                Button ("Clear"){
+                    deleteHistoryMessage()
+                }
                 TextField("Message...", text: $viewModel.message, axis: .vertical)
                     .textFieldStyle(.roundedBorder)
                 if viewModel.isWaitingForResponse {
@@ -98,6 +101,10 @@ struct ChatbotView: View {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func deleteHistoryMessage() {
+        viewModel.deleteHistoryMessage()
     }
 }
 

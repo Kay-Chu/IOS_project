@@ -15,6 +15,9 @@ struct RegistrationView: View {
     @State private var confirmPassword = ""
     @EnvironmentObject var viewModle: AuthViewModel
     
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
+    
     
     var body: some View {
         
@@ -35,8 +38,8 @@ struct RegistrationView: View {
                 .scaledToFit()
                 .frame(width: 100, height: 100)
                 .padding()
-                .clipShape(Circle())
-                .overlay(Circle().stroke(Color.gray, lineWidth: 1))
+//                .clipShape(Circle())
+//                .overlay(Circle().stroke(Color.gray, lineWidth: 1))
                 .padding(.vertical, 32)
             
             // form fields
@@ -73,7 +76,12 @@ struct RegistrationView: View {
             // sign up button
             Button {
                 Task {
-                    try await viewModle.createUser(withEmail: email, password: password, fullname: fullname)
+                    do{
+                        try await viewModle.createUser(withEmail: email, password: password, fullname: fullname)
+                    } catch {
+                        self.alertMessage = error.localizedDescription
+                        self.showAlert = true
+                    }
                 }
             } label: {
                 HStack {
@@ -88,6 +96,9 @@ struct RegistrationView: View {
             }
             .buttonStyle(BounceButtonStyle())
             .padding()
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Registration Failed"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
             
             Spacer()
             

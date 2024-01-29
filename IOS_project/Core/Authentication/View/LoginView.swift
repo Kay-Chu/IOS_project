@@ -14,6 +14,9 @@ struct LoginView: View {
     @State private var password = ""
     @EnvironmentObject var viewModel: AuthViewModel
     
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
+    
     var formIsValid: Bool {
         return !email.isEmpty
         && email.contains("@")
@@ -31,8 +34,6 @@ struct LoginView: View {
                     .scaledToFit()
                     .frame(width: 100, height: 100)
                     .padding()
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.gray, lineWidth: 1))
                     .padding(.vertical, 32)
                 
                 // form fields
@@ -43,7 +44,12 @@ struct LoginView: View {
                 // sign in button
                 Button {
                     Task {
-                        try await viewModel.signIn(withEmail: email, password: password)
+                        do {
+                                try await viewModel.signIn(withEmail: email, password: password)
+                            } catch {
+                                self.alertMessage = error.localizedDescription
+                                self.showAlert = true
+                            }
                     }
                 } label: {
                     HStack {
@@ -58,6 +64,9 @@ struct LoginView: View {
                 }
                 .buttonStyle(BounceButtonStyle())
                 .padding()
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Login Failed"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                }
                 
                 Spacer()
                     
@@ -81,6 +90,6 @@ struct LoginView: View {
     }
 }
 
-#Preview {
-    LoginView()
-}
+//#Preview {
+//    LoginView()
+//}

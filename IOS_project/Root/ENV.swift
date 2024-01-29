@@ -7,5 +7,5 @@
 
 
 struct APIKeys {
-    static let openAPIKey = "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"
+    static let openAPIKey = "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"
 }

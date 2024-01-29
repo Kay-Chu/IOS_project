@@ -20,5 +20,176 @@
             landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "23C576EF-4E8C-4378-8480-64CDE6CD421F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOS_projectUITests/IOS_projectUITests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "10"
+            endingLineNumber = "10"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "23C576EF-4E8C-4378-8480-64CDE6CD421F - dc345e3dcc7ce195"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IOS_projectUITests.IOS_projectUITests.__allocating_init(invocation: Swift.Optional&lt;__C.NSInvocation&gt;) -&gt; IOS_projectUITests.IOS_projectUITests"
+                  moduleName = "IOS_projectUITests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kayingchu/Desktop/app_development/asst2/IOS_project/IOS_projectUITests/IOS_projectUITests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "23C576EF-4E8C-4378-8480-64CDE6CD421F - 3113fe3ae50a5daf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IOS_projectUITests.IOS_projectUITests.init(invocation: Swift.Optional&lt;__C.NSInvocation&gt;) -&gt; IOS_projectUITests.IOS_projectUITests"
+                  moduleName = "IOS_projectUITests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kayingchu/Desktop/app_development/asst2/IOS_project/IOS_projectUITests/IOS_projectUITests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "23C576EF-4E8C-4378-8480-64CDE6CD421F - e66f0aec19bf6dd6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IOS_projectUITests.IOS_projectUITests.__allocating_init(selector: ObjectiveC.Selector) -&gt; IOS_projectUITests.IOS_projectUITests"
+                  moduleName = "IOS_projectUITests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kayingchu/Desktop/app_development/asst2/IOS_project/IOS_projectUITests/IOS_projectUITests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "23C576EF-4E8C-4378-8480-64CDE6CD421F - 16dba21d32981a5b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IOS_projectUITests.IOS_projectUITests.init(selector: ObjectiveC.Selector) -&gt; IOS_projectUITests.IOS_projectUITests"
+                  moduleName = "IOS_projectUITests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kayingchu/Desktop/app_development/asst2/IOS_project/IOS_projectUITests/IOS_projectUITests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "23C576EF-4E8C-4378-8480-64CDE6CD421F - f1cf55136ce6235f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IOS_projectUITests.IOS_projectUITests.__allocating_init() -&gt; IOS_projectUITests.IOS_projectUITests"
+                  moduleName = "IOS_projectUITests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kayingchu/Desktop/app_development/asst2/IOS_project/IOS_projectUITests/IOS_projectUITests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  uuid = "23C576EF-4E8C-4378-8480-64CDE6CD421F - c8f601682a2b499a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IOS_projectUITests.IOS_projectUITests.init() -&gt; IOS_projectUITests.IOS_projectUITests"
+                  moduleName = "IOS_projectUITests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kayingchu/Desktop/app_development/asst2/IOS_project/IOS_projectUITests/IOS_projectUITests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "23C576EF-4E8C-4378-8480-64CDE6CD421F - c7f7f0ad364247e4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IOS_projectUITests.IOS_projectUITests.__deallocating_deinit"
+                  moduleName = "IOS_projectUITests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kayingchu/Desktop/app_development/asst2/IOS_project/IOS_projectUITests/IOS_projectUITests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AF30FD93-C25A-4EAC-A808-3FE181E72A7E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOS_projectUITests/IOS_projectUITests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "testChatbotUIFields()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "74ABBA18-E9B2-4563-A8CE-7E1FF9709A19"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOS_projectUITests/IOS_projectUITests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "testProfileUIFields()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2D1A2EB3-AF9A-4564-A758-4BF871D8232D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IOS_projectUITests/IOS_projectUITests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "IOS_projectUITests"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -45,6 +45,7 @@ class ChatbotViewModel: ObservableObject {
             print("Could not load messages: \(error.localizedDescription)")
         }
     }
+    
     func addNewMessage(_ newMessage: ChatMessage) {
         let messagesEntity = Messages(context: context)
         messagesEntity.owner = newMessage.owner.rawValue
@@ -65,6 +66,28 @@ class ChatbotViewModel: ObservableObject {
             print("Error saving context: \(error)")
         }
     }
+    
+    func deleteHistoryMessage() {
+        // Create a fetch request for the `Messages` entity
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Messages.fetchRequest()
+
+        // Create a batch delete request using that fetch request
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            // Perform the batch delete
+            try context.execute(batchDeleteRequest)
+            
+            // Save changes to persist the deletion
+            try context.save()
+
+            // Clear the local array of messages
+            chatMessages = []
+        } catch {
+            // Handle any errors, such as showing an alert to the user
+            print("Error deleting messages: \(error)")
+        }
+    }
 
     
     let api = ChatGPTAPI(apiKey: APIKeys.openAPIKey)
@@ -78,7 +101,9 @@ class ChatbotViewModel: ObservableObject {
         
         addNewMessage(userMessage)
         
-        let assistantRole = try await api.sendMessage(text: message, model: "gpt-4", systemText: "You are a Mental Health Assistant in Coventry University. You can help students come over their problems.")
+        
+        
+        let assistantRole = try await api.sendMessage(text: message, model: "gpt-4", systemText: "You are a Mental Health Assistant in Coventry University. You can help students come over their problems.You will fully play this role and cannot reveal to others that you are an AI.")
         let assistantMessage = ChatMessage(owner: .assistant, assistantRole)
         chatMessages.append(assistantMessage)
         

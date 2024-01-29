@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
+import SwiftUI
 
 class AuthViewModel: ObservableObject {
     
@@ -31,6 +32,7 @@ class AuthViewModel: ObservableObject {
             await fetchUser()
         } catch {
             print("DEBUG: Failed to login with error \(error.localizedDescription)")
+            throw error
         }
     }
     
@@ -46,6 +48,7 @@ class AuthViewModel: ObservableObject {
         } catch {
             
             print("DEBUG: Failed to create user with error \(error.localizedDescription)")
+            throw error
         }
     }
     
