@@ -59,22 +59,6 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-//    func createUser(withEmail email:String, password:String, fullname:String) async throws {
-//        do {
-//            let result = try await Auth.auth().createUser(withEmail: email, password: password)
-//            self.userSession = result.user
-//            let user = User(uid: result.user.uid, username: fullname, email: email, avatarURL:"")
-//            let encodedUser = try Firestore.Encoder().encode(user)
-//            try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
-//            await fetchUser()
-////            await LoginView()
-//        } catch {
-//            
-//            print("DEBUG: Failed to create user with error \(error.localizedDescription)")
-//            throw error
-//        }
-//    }
-    
     func uploadProfileImage(image: UIImage) async throws -> URL {
         guard let uid = userSession?.uid else {
             throw UploadError.userNotLoggedIn
