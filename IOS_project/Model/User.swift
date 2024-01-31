@@ -8,9 +8,13 @@
 import Foundation
 
 struct User: Identifiable, Codable {
-    let id: String
+    
+    var id: String
+    
+    let uid: String
     let fullname: String
     let email: String
+    var avatarURL: String?
     
     var initials: String {
         let formatter = PersonNameComponentsFormatter()
@@ -20,8 +24,16 @@ struct User: Identifiable, Codable {
         }
         return ""
     }
+    
+    init(uid: String, username: String, email: String, avatarURL: String? = nil) {
+        self.id = uid  // Assign uid to id
+        self.uid = uid
+        self.fullname = username
+        self.email = email
+        self.avatarURL = avatarURL
+    }
 }
 
 extension User {
-    static var MOCK_USER = User(id: NSUUID().uuidString, fullname: "Kobe Bryant", email: "test@gmail.com")
+    static var MOCK_USER = User(uid: NSUUID().uuidString, username: "Kobe Bryant", email: "test@gmail.com", avatarURL: "")
 }
