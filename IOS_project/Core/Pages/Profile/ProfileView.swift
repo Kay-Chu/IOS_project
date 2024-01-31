@@ -5,11 +5,19 @@
 //  Created by KA YING CHU on 13/1/2024.
 //
 
+import UIKit
 import SwiftUI
 
 struct ProfileView: View {
     
     @EnvironmentObject var viewModel: AuthViewModel
+    
+    @State private var showingImagePicker = false
+    @State private var showingActionSheet = false
+    
+    @State private var inputImage: UIImage?
+    @State private var avatarImage: UIImage?
+    @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary //select photo from camera or album
     
     @State private var showShareSheet = false
     @State private var shareItems = [Any]()
@@ -20,25 +28,55 @@ struct ProfileView: View {
             Section {
                 if let user = viewModel.currentUser {
                     HStack {
-                        Text(user.initials)
-                            .font(.title)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.white)
+                        if let avatarURL = user.avatarURL, let imageURL = URL(string: avatarURL) {
+                            AsyncImage(url: imageURL) { image in
+                                image.resizable()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .scaledToFill()
                             .frame(width: 72, height: 72)
-                            .background(Color(.systemGray3))
                             .clipShape(Circle())
+                            .onTapGesture {
+                                self.showingActionSheet = true
+                            }
+                        } else {
+                            Text(user.initials)
+                                .font(.title)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.white)
+                                .frame(width: 72, height: 72)
+                                .background(Color(.systemGray3))
+                                .clipShape(Circle())
+                                .onTapGesture {
+                                    self.showingActionSheet = true
+                                }
+                        }
                         
-                        VStack(alignment: .leading,spacing: 4){
+                        VStack(alignment: .leading, spacing: 4) {
                             Text(user.fullname)
                                 .font(.headline)
                                 .fontWeight(.semibold)
                                 .padding(.top, 4)
                             Text(user.email)
                                 .font(.footnote)
-                                .accentColor(.gray)
+                                .foregroundColor(.gray)
                         }
                     }
-                    
+                    .confirmationDialog("Select Image", isPresented: $showingActionSheet, titleVisibility: .visible) {
+                        Button("Camera") {
+                            self.sourceType = .camera
+                            self.showingImagePicker = true
+                        }
+                        Button("Photo Library") {
+                            self.sourceType = .photoLibrary
+                            self.showingImagePicker = true
+                        }
+                        Button("Cancel", role: .cancel) { }
+                    }
+                    .sheet(isPresented: $showingImagePicker, onDismiss: onDismiss) {
+                        ImagePicker(image: self.$inputImage, sourceType: self.sourceType)
+                    }
                 }else {
                     HStack {
                         Text("user.fullname")
@@ -56,11 +94,12 @@ struct ProfileView: View {
                                 .padding(.top, 4)
                             Text("user.fullname")
                                 .font(.footnote)
-                                .accentColor(.gray)
+                                .foregroundColor(.gray)
                         }
                     }
                 }
             }
+                    
             Section("General") {
                 HStack{
                     Button(action: {
@@ -91,8 +130,27 @@ struct ProfileView: View {
                 }
             }
         }
-   
+    }
+    
+    func onDismiss() {
+        Task {
+            await loadImage()
+        }
+    }
+    
+    func loadImage() async {
+        guard let inputImage = inputImage else { return }
 
+        do {
+            let url = try await viewModel.uploadProfileImage(image: inputImage)
+            print("url: \(url)")
+            
+            avatarImage = inputImage
+            
+            await viewModel.updateUserAvatarURL(url)
+        } catch {
+            print("Error uploading profile image: \(error.localizedDescription)")
+        }
     }
 }
 
