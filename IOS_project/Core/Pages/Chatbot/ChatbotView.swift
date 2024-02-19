@@ -12,6 +12,11 @@ struct ChatbotView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @StateObject private var viewModel: ChatbotViewModel
     
+    
+    @State private var showDocumentPicker = false
+    @State private var pickedURL: URL?
+    
+    
     init() {
             let context = PersistenceController.shared.container.viewContext
             _viewModel = StateObject(wrappedValue: ChatbotViewModel(context: context))
@@ -41,6 +46,15 @@ struct ChatbotView: View {
                 
             }
             
+            Button("Upload File") {
+                showDocumentPicker = true
+            }
+            
+            if let pickedURL = pickedURL {
+                Text("Picked file: \(pickedURL.lastPathComponent)")
+                // You can add additional logic to upload the audio file here.
+            }
+            
             HStack {
                 Button ("Clear"){
                     deleteHistoryMessage()
@@ -58,6 +72,12 @@ struct ChatbotView: View {
                 }
             }
             .padding()
+        }
+        
+        .sheet(isPresented: $showDocumentPicker) {
+            DocumentPicker { url in
+                pickedURL = url
+            }
         }
         
         

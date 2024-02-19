@@ -140,6 +140,8 @@ struct ProfileView: View {
     
     func loadImage() async {
         guard let inputImage = inputImage else { return }
+        
+        print("loadImage")
 
         do {
             let url = try await viewModel.uploadProfileImage(image: inputImage)

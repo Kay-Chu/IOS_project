@@ -139,4 +139,25 @@ class AuthViewModel: ObservableObject {
         
     }
     
+    func saveFeelingToFirebase(feeling: Feeling) async throws {
+        
+        guard let uid = userSession?.uid else { return }
+        let userRef = Firestore.firestore().collection("users").document(uid)
+
+        let feelingData: [String: Any] = [
+            "id": feeling.id,
+            "title": feeling.title,
+            "content": feeling.content,
+            "timestamp": Timestamp(date: feeling.timestamp)
+        ]
+
+        do {
+            _ = try await userRef.collection("feelings").addDocument(data: feelingData)
+            print("Feeling saved successfully")
+        } catch {
+            print("Error saving feeling: \(error)")
+            throw error
+        }
+    }
+    
 }

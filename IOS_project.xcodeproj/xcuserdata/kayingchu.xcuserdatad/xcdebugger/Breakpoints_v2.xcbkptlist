@@ -155,8 +155,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "75"
             endingLineNumber = "75"
-            landmarkName = "testChatbotUIFields()"
-            landmarkType = "7">
+            landmarkName = "IOS_projectUITests"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -171,8 +171,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "127"
             endingLineNumber = "127"
-            landmarkName = "testProfileUIFields()"
-            landmarkType = "7">
+            landmarkName = "IOS_projectUITests"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

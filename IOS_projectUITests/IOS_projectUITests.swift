@@ -28,7 +28,7 @@ final class IOS_projectUITests: XCTestCase {
         if emailTextField.exists {
             
             emailTextField.tap()
-            emailTextField.typeText("Test2@test2.com")
+            emailTextField.typeText("User@user.com")
             
             let passwordSecureField = app.secureTextFields["Enter your password"]
             //        XCTAssertTrue(passwordSecureField.waitForExistence(timeout: 10), "Password secure field not found.")
@@ -39,9 +39,9 @@ final class IOS_projectUITests: XCTestCase {
             let signInButton = app.buttons["SIGN IN"]
             signInButton.tap()
         } else {
-//            testHomePageUIFields()
+            testHomePageUIFields()
         }
-//        testHomePageUIFields()
+        testHomePageUIFields()
     }
     
 
@@ -54,7 +54,7 @@ final class IOS_projectUITests: XCTestCase {
 //            testLoginUIFields()
 //        }
         
-        app.collectionViews/*@START_MENU_TOKEN@*/.buttons["School Notice 1⃣️"].staticTexts["School Notice 1⃣️"]/*[[".cells",".buttons[\"School Notice 1⃣️\"].staticTexts[\"School Notice 1⃣️\"]",".staticTexts[\"School Notice 1⃣️\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[1]]@END_MENU_TOKEN@*/.tap()
+        app.collectionViews/*@START_MENU_TOKEN@*/.cells.staticTexts["School Notice 1⃣️"]/*[[".cells",".buttons[\"School Notice 1⃣️\"].staticTexts[\"School Notice 1⃣️\"]",".staticTexts[\"School Notice 1⃣️\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[2,0]]@END_MENU_TOKEN@*/.tap()
         
         let closeButton = app.buttons["Close"]
         closeButton.tap()

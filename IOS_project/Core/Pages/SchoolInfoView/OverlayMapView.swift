@@ -34,14 +34,9 @@ struct OverlayMapView : UIViewRepresentable {
     
     func makeUIView(context: Context) -> MKMapView {
         
-        
         mapView.delegate = delegate
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .follow
-        
-        
-       
-        
 
         return mapView
     }

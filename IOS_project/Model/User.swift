@@ -26,7 +26,7 @@ struct User: Identifiable, Codable {
     }
     
     init(uid: String, username: String, email: String, avatarURL: String? = nil) {
-        self.id = uid  // Assign uid to id
+        self.id = uid  
         self.uid = uid
         self.fullname = username
         self.email = email

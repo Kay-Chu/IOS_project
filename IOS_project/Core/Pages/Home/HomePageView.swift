@@ -12,7 +12,8 @@ struct HomePageView: View {
     @State private var notifications: [Notification] = [
         Notification(title: "School Notice 1⃣️", message: "School will be closed tomorrow due to weather conditions.", backgroundImageName: "Notification1"),
             Notification(title: "School Notice 2⃣️",message: "Parent-teacher meetings are scheduled for next week.", backgroundImageName: "Notification2"),
-            Notification(title: "School Notice 3⃣️",message: "New library hours have been updated on the website.", backgroundImageName: "Notification3")
+            Notification(title: "School Notice 3⃣️",message: "New library hours have been updated on the website.", backgroundImageName: "Notification3"),
+            Notification(title: "School Notice 4⃣️",message: "Testing Notification 4", backgroundImageName: "Notification3")
         ]
     
     @State private var showingNotificationDetail = false
@@ -79,18 +80,22 @@ struct HomePageView: View {
                                     .cornerRadius(10)
                                 
                             }
-                            NavigationLink(destination: SchoolInfoView()) {
-                                Text("My Test")
+                            NavigationLink(destination: FeelingsListView()) {
+                                VStack{
+                                    Image(systemName:"heart.fill").foregroundColor(.white)
+                                    Text("My Feelings")
+                                    
+                                }
                                     .frame(width: 100, height: 100)
-                                    .background(Color.mint)
+                                    .background(Color.indigo)
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
                             }
                             
                             NavigationLink(destination: ProfileView()) {
-                                Text("My Mood")
+                                Text("Profile")
                                     .frame(width: 100, height: 100)
-                                    .background(Color.green)
+                                    .background(Color.mint)
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
                             }
@@ -101,10 +106,12 @@ struct HomePageView: View {
                 Divider()
                 
                 Section {
-                    ForEach(notifications) { notification in
-                        
-                        NotificationRowView(imageName: notification.backgroundImageName, title: notification.title, description: notification.message)
-                            .frame(height: 100)
+                    ScrollView(showsIndicators: false){
+                        ForEach(notifications) { notification in
+                            
+                            NotificationRowView(imageName: notification.backgroundImageName, title: notification.title, description: notification.message)
+                                .frame(height: 100)
+                        }
                     }
                 }.padding(.horizontal,30)
                 
