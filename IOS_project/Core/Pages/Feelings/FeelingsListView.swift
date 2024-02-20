@@ -15,16 +15,14 @@ struct FeelingsListView: View {
             return
         }
         let db = Firestore.firestore()
-        let userFeelingsRef = db.collection("users").document(userId).collection("feelings")
-        
-        userFeelingsRef
-            .order(by: "timestamp", descending: true)
+        db.collection("users").document(userId).collection("feelings")
+        .order(by: "timestamp", descending: true)
             .addSnapshotListener { (querySnapshot, error) in
                 DispatchQueue.main.async {
                     if let error = error {
                         print("Error getting documents: \(error.localizedDescription)")
                     } else if let querySnapshot = querySnapshot {
-                        print("got feeling:\(querySnapshot.documents)")
+//                        print("got feeling:\(querySnapshot.documents)")
                         self.feelings = querySnapshot.documents.compactMap { document -> Feeling? in
                             do {
                                 return try document.data(as: Feeling.self)
@@ -33,7 +31,6 @@ struct FeelingsListView: View {
                                 return nil
                             }
                         }
-                        print("loaded feeling:\(self.feelings)")
                     }
                 }
             }
@@ -45,11 +42,8 @@ struct FeelingsListView: View {
             ZStack(alignment: .bottomTrailing) {
                 List {
                     ForEach(feelings) { feeling in
-//                        Text("testing 2")
                         NavigationLink(destination: FeelingDetailView(feeling: feeling)) {
-//                            Text("testing 3")
                             VStack(alignment: .leading) {
-//                                Text("testing 4")
                                 Text(feeling.title)
                                     .fontWeight(.bold)
                                 Text(feeling.content)
@@ -60,12 +54,12 @@ struct FeelingsListView: View {
                             }
                         }
                     }
-//                    .onDelete(perform: deleteFeeling)
+                    .onDelete(perform: deleteFeeling)
                 }
                 .navigationTitle("Feelings")
+                    .font(.custom("Cabal", size: 20))
                 .onAppear {
                     loadFeelings()
-                    print(feelings)
                 }
 
                 addButton
@@ -78,7 +72,25 @@ struct FeelingsListView: View {
     }
 
     private func deleteFeeling(at offsets: IndexSet) {
-        //
+        guard let userId = viewModel.currentUser?.uid else {
+            print("User ID is nil")
+            return
+        }
+        let db = Firestore.firestore()
+
+        for index in offsets {
+            let feelingId = feelings[index].id
+            db.collection("users").document(userId).collection("feelings").document(feelingId).delete { error in
+                if let error = error {
+                    print("Unable to remove document: \(error.localizedDescription)")
+                } else {
+                    DispatchQueue.main.async {
+                        self.feelings.remove(at: index)
+                        print("Document successfully removed!")
+                    }
+                }
+            }
+        }
     }
 
     private var addButton: some View {
@@ -98,15 +110,23 @@ struct FeelingDetailView: View {
     let feeling: Feeling
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(feeling.title)
-                .font(.title)
-                .fontWeight(.bold)
-            Text(feeling.content)
-                .font(.body)
+        ZStack {
+            Color.mint.opacity(0.3)
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                Text(feeling.title)
+                    .font(.custom("Cabal-Bold", size: 30))
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity, alignment: .center)
+
+                Text(feeling.content)
+                    .font(.custom("Cabal", size: 15))
+                    .padding([.leading, .trailing, .bottom])
+                
+                Spacer()
+            }
         }
-        .padding()
-        .navigationTitle(feeling.title)
     }
 }
 

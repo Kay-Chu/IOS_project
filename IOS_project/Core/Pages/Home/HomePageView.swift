@@ -71,7 +71,7 @@ struct HomePageView: View {
                         HStack(spacing: 20) {
                             NavigationLink(destination: ChatbotView()) {
                                 VStack{
-                                    Image(systemName:"shareplay").foregroundColor(.white)
+//                                    Image(systemName:"shareplay").foregroundColor(.white)
                                     Text("My Chat")
                                     
                                 }.frame(width: 100, height: 100)

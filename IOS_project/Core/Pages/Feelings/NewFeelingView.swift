@@ -16,7 +16,6 @@ struct NewFeelingView: View {
             TextField("Content", text: $newFeelingContent)
                 .padding()
             Button("Add") {
-                // Assuming 'viewModel' is accessible here, if not, pass it in or use @EnvironmentObject
                 let newFeeling = Feeling(userId: viewModel.currentUser!.uid, title: newFeelingTitle, content: newFeelingContent)
                 Task {
                     do {
